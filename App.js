@@ -2,6 +2,8 @@ import * as Location from 'expo-location';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Dimensions, ActivityIndicator, Button, TouchableOpacity} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Fontisto } from '@expo/vector-icons';
 
 export default function App() {
   const [day, setDay] = useState([]);
@@ -11,6 +13,15 @@ export default function App() {
   const [city, setCity] = useState("Loading...")
   
   const API_KEY = "8d4ead1a92be687d39e16ff080a804f1";
+
+  const icons = {
+    "Clouds":"cloudy",
+    "Clear": "day-sunny",
+    "Rain":"rain",
+    "Snow":"snow",
+    "Thunderstorm":"lighting",
+  }
+
 
   const handleButtonClick = ()=>{
     setOk(true);
@@ -94,7 +105,14 @@ useEffect(() => {
      :
      (day.map((today, index)=>
      <View key={index} style = {mystyle.day}>
-     <Text style={mystyle.temp}>{parseFloat(today.main.temp).toFixed(1)}</Text>
+      <View style={{flexDirection:"row", 
+      alignItems:"center", 
+      justifyContent:"space-between",
+      width: "100%",
+      }}>
+      <Text style={mystyle.temp}>{parseFloat(today.main.temp).toFixed(1)}</Text>
+      <Fontisto name={icons[today.weather[0].main]} size={50} color="black" />
+      </View>
      <Text style={mystyle.description}>{today.weather[0].main}</Text>
       <Text style={mystyle.tinytext}>{today.weather[0].description}</Text>
       {/* <Text>{day.main.temp}</Text>
@@ -147,13 +165,17 @@ const mystyle = StyleSheet.create({
     
     width: screen_width,
     fontSize:50,
-    alignItems: "center",
+   //alignItems: "center",
+   alignItems: "flex-start",
+    paddingHorizontal: 20,
   },
   temp:{
       fontSize:128,
       marginTop:30,
+      fontWeight: "600",
   },
   description:{
+    
     fontSize:60,
     marginTop:-10
   },

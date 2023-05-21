@@ -13,6 +13,7 @@ import {
   Alert,
   Button,
   Modal,
+  Platform
 } from 'react-native';
 import {theme} from './colors.js'
 import { useEffect, useState } from 'react'
@@ -105,19 +106,32 @@ export default function App() {
   console.log(84,"done", done);
 
   const deleteTodo=async(id)=>{
-    Alert.alert(
-      "Delete To do",
-      "Are you sure?",[
-    {text:"Cancel"},
-    {text:"Ok", 
-    onPress:async()=>{
-    const newToDos = {...todos}
-    delete newToDos[id]
-    setTodos(newToDos);
-    await saveTodo(newToDos);
+    if(Platform.OS==="web"){
+      const ok=confirm("Do you want to delete this To DO?")
+      if(ok){
+          const newToDos = {...todos};
+          delete newToDos[id]
+          setTodos(newToDos);
+          await saveTodo(newToDos); 
     }
-  }])
+    else
     return
+  }else{
+    Alert.alert(
+          "Delete To do",
+          "Are you sure?",[
+        {text:"Cancel"},
+        {text:"Ok", 
+        onPress:async()=>{
+        const newToDos = {...todos}
+        delete newToDos[id]
+        setTodos(newToDos);
+        await saveTodo(newToDos);
+        }
+      }])
+        return
+    }
+    
   }
   const doneTodo=async(id)=>{
     const newToDos = {...todos}

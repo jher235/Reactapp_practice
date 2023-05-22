@@ -9,13 +9,14 @@
     "splash": {
       "image": "./image/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "white"
+      "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jher.todo"
     },
     "android": {
       "adaptiveIcon": {

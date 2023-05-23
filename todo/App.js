@@ -62,8 +62,10 @@ export default function App() {
   const loadTodo = async()=>{
     try{
     const l = await AsyncStorage.getItem(STORAGE_KEY);
-    setTodos(JSON.parse(l));//json.parse는 스트링을 js오브젝트로 변환
     setLoading(false);
+    if(l){
+     setTodos(JSON.parse(l));//json.parse는 스트링을 js오브젝트로 변환
+    }
    }catch(e){
     console.log('an error occurred:'+e.message)
    }
@@ -86,7 +88,9 @@ export default function App() {
   const loadDone=async()=>{
     try{
     const d = await AsyncStorage.getItem(DONE_KEY);
-    setdone(JSON.parse(d))
+    if(d){
+      setdone(JSON.parse(d))
+    }
     }catch(e){
       console.log(e);
     }}
